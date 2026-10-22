@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>登录状态与 Token · 私人工具箱</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body><main>
+<header><p class="eyebrow">私人开发工作台 · 认证能力</p><h1>登录状态与 Token</h1><p>实际执行设备 <strong>9955HX</strong> · 固定账户 <strong>zhkyy</strong></p></header>
+<section class="notice"><strong>此能力需要 9955HX 在线且具备企业网络。</strong><p>状态查看只读本机缓存，不会自动登录。缓存未过期不等于上游会话有效；成功获取 Token 也不等于业务接口授权已验证。3600 只提供入口。</p></section>
+<section><div class="heading"><h2>执行设备状态</h2><button id="refresh" type="button">更新状态</button></div><p id="checked">尚未读取</p><div id="states" class="states"></div></section>
+<section id="auth-section" aria-busy="false"><h2>登录与获取 Token</h2>
+<label for="env">环境与认证类型</label><select id="env"><option value="rms-t">RMS 测试 · ccxiplatformtoken</option><option value="rms-pre">RMS 预发 · ccxiplatformtoken</option><option value="admin-t">Admin 测试 · CCXI-Auth Bearer</option><option value="admin-pre">Admin 预发 · CCXI-Auth Bearer</option></select>
+<p id="capability" class="muted">正在读取该环境支持的认证方式…</p>
+<div class="actions auth-actions"><button id="get-token" class="primary" type="button" disabled>获取当前 Token</button><button id="renew-token" type="button" disabled>刷新 / 续期</button></div>
+<p class="muted">获取时优先复用缓存，仅在需要时尝试受支持的续期。RMS 刷新会调用固定的只读会话验证入口，可能更新认证会话；仅在访问令牌已过期且服务器会话仍有效时签发新 Token，未到期仍返回缓存。首次登录或会话失效时可在本页登录。</p>
+<details id="login-details"><summary>登录 / 重新登录</summary><form id="login-form" autocomplete="off" method="post">
+<p>账户固定为 <strong>zhkyy</strong>。可在此直接登录，无需返回终端。</p><label for="password">登录密码（仅本次使用）</label><input id="password" type="password" autocomplete="off" spellcheck="false" autocapitalize="none" maxlength="4096" required aria-describedby="password-help">
+<p id="password-help" class="muted">密码通过 HTTPS 提交给 9955HX，再由既有助手访问企业现有 HTTP 认证端点；不写入 URL、浏览器存储或新密码文件。提交后立即清空；页面离开时也清空。每次重新登录需在此输入密码。</p>
+<button id="login" type="submit" disabled>登录当前环境</button>
+</form></details>
+<div id="token-panel" hidden><p id="token-meta"></p><label for="token">Token（默认遮罩）</label><input id="token" type="password" readonly autocomplete="off" spellcheck="false" aria-label="Token"><div class="actions"><button id="reveal" type="button">显示 Token</button><button id="copy" type="button">复制 Token</button><button id="clear" type="button">清除当前页面 Token</button></div><p class="muted">仅保留在当前页面内存，最多 5 分钟；切换环境、离开页面或已知到期时清除。不会进入 URL、本地存储或普通日志。复制后会进入系统剪贴板，请自行按需清理。</p></div>
+</section>
+<p id="feedback" role="status" aria-live="polite"></p>
+<section class="help"><h2>遇到登录障碍时</h2><p>当前助手支持标准密码登录、Admin 刷新与 RMS 网关会话续期，尚不支持网页内验证码或 MFA 挑战。认证未通过时不能仅凭通用错误判断是密码还是额外验证要求；请在对应官方登录入口确认。本页不会复用官方网页 Cookie，也不会自动重试密码或绕过认证。</p><p>连接失败时结果可能不确定，请先更新状态再决定是否重试。状态更新不会登录，也不会删除有效缓存。</p></section>
+<footer>所有响应禁止缓存 · 仅允许指定 Tailscale 身份 · RMS 与 Admin Token 不可混用</footer>
+</main></body></html>

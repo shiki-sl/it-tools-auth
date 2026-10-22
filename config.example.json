@@ -1,0 +1,4 @@
+{
+  "origin": "https://device.example.invalid:8446",
+  "identities": ["you@example.invalid"]
+}

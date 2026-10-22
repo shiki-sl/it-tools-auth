@@ -1,0 +1,11 @@
+# Keep this repository limited to reviewed source and a credential-free template.
+*
+!.gitignore
+!README.md
+!server.py
+!provider.py
+!app.js
+!index.html
+!style.css
+!test_auth.py
+!config.example.json
